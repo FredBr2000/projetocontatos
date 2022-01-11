@@ -1,0 +1,89 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Cadastro de Contatos</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Preencha o formulário para incluir um contato</h6>
+
+        <div *ngIf="mensagem_sucesso" class="alert alert-success mb-3">
+            <strong>Sucesso!</strong> {{mensagem_sucesso}}
+        </div>
+
+        <div *ngIf="mensagem_erro" class="alert alert-danger mb-3">
+            <strong>Erro!</strong> {{mensagem_erro}}
+        </div>
+
+        <form [formGroup]="formCadastro" (ngSubmit)="onSubmit()">
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Nome do Contato:</label>
+                    <input type="text" class="form-control" placeholder="Ex: João dos Santos" 
+                        formControlName="nome" [readonly]="isLoading" />
+
+                    <div class="text-danger" *ngIf="form.nome.touched && form.nome.invalid">
+                        <div *ngIf="form.nome.errors.required">
+                            Por favor, informe o nome do contato.
+                        </div>
+                        <div *ngIf="form.nome.errors.minlength">
+                            Por favor, informe no mínimo 10 caracteres.
+                        </div>
+                        <div *ngIf="form.nome.errors.maxlength">
+                            Por favor, informe no máximo 150 caracteres.
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <label>Email:</label>
+                    <input type="email" class="form-control" placeholder="Ex: joaosantos@gmail.com"
+                        formControlName="email" [readonly]="isLoading" />
+
+                    <div class="text-danger" *ngIf="form.email.touched && form.email.invalid">
+                        <div *ngIf="form.email.errors.required">
+                            Por favor, informe o email do contato.
+                        </div>
+                        <div *ngIf="form.email.errors.email">
+                            Por favor, preencha um endereço de email válido.
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <label>Telefone:</label>
+                    <input type="text" class="form-control" placeholder="Ex: (99) 99999-9999"
+                        formControlName="telefone" mask="(00) 00000-0000" [readonly]="isLoading"/>
+
+                    <div class="text-danger" *ngIf="form.telefone.touched && form.telefone.invalid">
+                        <div *ngIf="form.telefone.errors.required">
+                            Por favor, informe o telefone do contato.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
+
+                    <input type="submit" value="Realizar Cadastro" class="btn btn-success"
+                        [disabled]="!formCadastro.valid || isLoading" />
+                    &nbsp;
+                    <input type="button" value="Cancelar" class="btn btn-secondary"
+                        [disabled]="isLoading" />
+
+                </div>
+            </div>
+
+        </form>
+
+        <div class="row mb-3" *ngIf="isLoading">
+            <div class="col-md-12 text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="mt-2">
+                    Processando requisição, por favor aguarde...      
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

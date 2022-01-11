@@ -1,0 +1,64 @@
+<div class="card mb-5">
+    <div class="card-body">
+        <h5 class="card-title">Consulta de Contatos</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Listagem de contatos cadastrados</h6>
+      
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <label>Pesquisar contatos:</label>
+                <input type="text" class="form-control" placeholder="Digite aqui"
+                    [(ngModel)]="filtro"/>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Nome do contato</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th width="200">Operações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of contatos | filter : filtro | paginate : { itemsPerPage : 4, currentPage : pagina }">
+                    <td>{{item.nome | uppercase}}</td>
+                    <td>{{item.email | lowercase}}</td>
+                    <td>{{item.telefone | mask : '(00) 00000-0000'}}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm"
+                            [routerLink]="['/contatos-edicao', item.idContato]">
+                            Editar
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-danger btn-sm"
+                            (click)="excluir(item.idContato)">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        Quantidade de contatos: {{(contatos | filter : filtro).length}}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+
+                <!-- régua de paginação -->
+                <pagination-controls 
+                    (pageChange)="handlePageChange($event)"
+                    previousLabel="Página anterior" 
+                    nextLabel="Próxima página">
+                </pagination-controls>
+
+            </div>
+        </div>
+
+    </div>
+</div>

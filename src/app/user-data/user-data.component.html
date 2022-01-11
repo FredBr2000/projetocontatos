@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-body">
+
+        <h5 class="card-title">Minha Conta</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Dados do usuário autenticado:</h6>
+
+        <hr />
+
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td width="200"><label>Id do Usuário:</label></td>
+                    <td>{{usuario.idUsuario}}</td>
+                </tr>
+                <tr>
+                    <td><label>Nome do Usuário:</label></td>
+                    <td>{{usuario.nome}}</td>
+                </tr>
+                <tr>
+                    <td><label>Email de Acesso:</label></td>
+                    <td>{{usuario.email}}</td>
+                </tr>
+                <tr>
+                    <td><label>Data de Cadastro:</label></td>
+                    <td>{{usuario.dataCadastro | date : 'dd/MM/yyyy HH:mm'}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
